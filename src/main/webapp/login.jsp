@@ -16,7 +16,7 @@
 <%--    <input name="password" id="password" type="text">--%>
 <%--    <button type="submit">Submit</button>--%>
 <%--</form>--%>
-<div class="card border-dark mb-3 d-flex mx-auto" style="max-width: 25rem; ">
+<div class="card border-dark mb-3 d-flex mx-auto mt-5" style="max-width: 40rem; ">
     <div class="card-header">Login</div>
     <div class="card-body text-dark">
         <form action="login.jsp" method="POST">
