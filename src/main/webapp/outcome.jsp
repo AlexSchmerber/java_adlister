@@ -3,10 +3,12 @@
 <jsp:include page="partials/navbar.jsp" />
 <jsp:include page="partials/head.jsp" />
 
+<!doctype html>
 <html>
 <head>
-    <title>View Color</title>
+    <title>Outcome</title>
 </head>
-<body style="background-color: ${param.color}">
+<body>
+<h1>${param.guess}</h1>
 </body>
 </html>
