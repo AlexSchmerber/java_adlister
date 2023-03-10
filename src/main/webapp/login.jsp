@@ -19,7 +19,7 @@
 <div class="card border-dark mb-3 d-flex mx-auto mt-5" style="max-width: 40rem; ">
     <div class="card-header">Login</div>
     <div class="card-body text-dark">
-        <form action="login.jsp" method="POST">
+        <form action="${pageContext.request.contextPath}/login/request" method="POST">
             <div class="mb-3">
                 <label for="exampleInputName1" class="form-label">Username</label>
                 <input name="name" type="text" class="form-control" id="exampleInputName1">
@@ -27,7 +27,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input name="password" type="password" class="form-control" id="exampleInputPassword1">
+                <input name="password" class="form-control" id="exampleInputPassword1">
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -39,15 +39,7 @@
 </div>
 
 
-<%
-    String name = request.getParameter("name");
-    String password = request.getParameter("password");
-    if("admin".equals(name) && "password".equals(password)){
-        response.sendRedirect("profile.jsp");
-    } else if (name != null || password != null) {
-        response.sendRedirect("login.jsp");
-    }
-%>
+
 
 
 </body>
