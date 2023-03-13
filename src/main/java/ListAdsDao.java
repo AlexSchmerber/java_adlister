@@ -18,8 +18,8 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
-    public void insert(Ad ad) {
-
+    public long insert(Ad ad) {
+        return 0;
     }
 
     @Override

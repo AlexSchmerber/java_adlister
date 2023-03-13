@@ -5,7 +5,7 @@
     <title>Ads</title>
 </head>
 <body>
-<p>ads</p>
+<h1>Ads</h1>
 <ul>
     <c:forEach var="ad" items="${ads}">
         <li>${ad.title}</li>
