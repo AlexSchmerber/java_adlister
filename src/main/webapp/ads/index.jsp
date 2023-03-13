@@ -5,11 +5,10 @@
     <title>Ads</title>
 </head>
 <body>
-<h1>Ads</h1>
-<ul>
-    <c:forEach var="ad" items="${ads}">
-        <li>${ad.title}</li>
-    </c:forEach>
-</ul>
+<h1>Here are all the ads!</h1>
+<c:forEach var="ad" items="${ads}">
+    <h2>"${ad.title}"</h2>
+    <p>By: ${ad.author}</p>
+</c:forEach>
 </body>
 </html>
