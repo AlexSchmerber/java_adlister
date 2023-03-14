@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class  MySQLAdsDao implements Ads{
-    private Connection connection = null;
+    private Connection connection;
 
     public MySQLAdsDao(Config config){
         try {
@@ -16,56 +16,45 @@ public class  MySQLAdsDao implements Ads{
                     config.getPassword()
             );
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("error in MySQLAdsDao Config");
         }
 
     }
     @Override
     public List<Ad> all() {
-        List<Ad> ads = new ArrayList<>();
         try {
 //            String sql = "SELECT * FROM ads";
 //            PreparedStatement stmt = connection.prepareStatement(sql);
+            List<Ad> adsList = new ArrayList<>();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM ads");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM ymir_alex.ads");
             while (rs.next()) {
-                System.out.println("Inserted a new record! New id: " + rs.getLong(1));
-                ads.add(new Ad(
+                adsList.add(new Ad(
                         rs.getLong("id"),
-                        rs.getLong("userId"),
+                        rs.getLong("user_id"),
                         rs.getString("title"),
                         rs.getString("description")
                 ));
             }
-            return ads;
+            return adsList;
         } catch(SQLException e) {
-            throw new RuntimeException("Error connecting to database.", e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public long insert(Ad ad) {
+        long results = 0;
         try {
             Statement stmt = connection.createStatement();
             String sql = String.format("INSERT INTO ads (title, description, userId) VALUES ('%s', '%s', '%s')", ad.getTitle(), ad.getDescription(), ad.getUserId());
-            long results = stmt.executeUpdate(sql);
+            results = stmt.executeUpdate(sql);
             return results;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("error in insert");
         }
+        return results;
     }
-
-    //    @Override
-//    public void insert(Ad ad) {
-//        String query = "USE ymir_alex INTO ads(id, userid, title, description) VALUES(ads.getId(), ad.getUserId(), ad.getTitle(), ad.getDescription())";
-//        try {
-//            Statement stmt = connection.createStatement();
-//            stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     @Override
     public Ad findOne(long id) {

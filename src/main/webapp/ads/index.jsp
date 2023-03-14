@@ -8,7 +8,7 @@
 <h1>Here are all the ads!</h1>
 <c:forEach var="ad" items="${ads}">
     <h2>"${ad.title}"</h2>
-    <p>By: ${ad.author}</p>
+    <p>By: ${ad.description}</p>
 </c:forEach>
 </body>
 </html>
