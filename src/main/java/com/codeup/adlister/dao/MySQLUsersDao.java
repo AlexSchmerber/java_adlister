@@ -2,7 +2,7 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
-import com.codeup.adlister.models.User;
+
 import java.sql.*;
 
 public class MySQLUsersDao implements Users{
@@ -22,19 +22,29 @@ public class MySQLUsersDao implements Users{
     }
 
     @Override
-    public User findByUsername(String user) {
-//        try {
-//            String sql = String.format("SELECT * FROM users WHERE name = %s", user.getUserName());
-//            PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-//            stmt.setString(1, "" + user.getId() + "");
-//            stmt.executeUpdate();
-//            ResultSet rs = stmt.getGeneratedKeys();
-//            return rs.getLong(1);
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Error creating a new ad.", e);
-//        }
-        return null;
+    public User findByUsername(String username) {
+        PreparedStatement stmt = null;
+        try {
+            String sql = "SELECT * FROM users WHERE name = ?";
+            stmt = connection.prepareStatement(sql);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return extractUsers(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating a new ad.", e);
+        }
     }
+
+    private User extractUsers(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getLong("id"),
+                rs.getString("name"),
+                rs.getString("email"),
+                rs.getString("password")
+        );
+    }
+
 
     @Override
     public Long insert(User user) {
