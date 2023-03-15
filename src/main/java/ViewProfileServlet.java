@@ -6,19 +6,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 
-@WebServlet(name = "ViewProfile", urlPatterns = "/viewprofile")
+@WebServlet(name = "ViewProfile", urlPatterns = "/profile")
 public class ViewProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
             HttpSession session = request.getSession();
-            if (session.getAttribute("user") == null || !(Boolean) session.getAttribute("user")) {
-                response.sendRedirect("/login.jsp");
+            if(session.getAttribute("login") == null){
+                response.sendRedirect("/login");
+            } else if (session.getAttribute("user") == null && !(boolean) session.getAttribute("login")) {
+                response.sendRedirect("/login");
             } else{
-                response.sendRedirect("/profile.jsp");
+                request.getRequestDispatcher("/profile.jsp").forward(request, response);
             }
         } catch(Exception e){
-            System.out.println("exception occured");
+            throw new RuntimeException("Exception Occured", e);
         }
     }
 }

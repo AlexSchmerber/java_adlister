@@ -13,7 +13,7 @@ public class LogoutServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             session.invalidate();
-            response.sendRedirect("/login.jsp");
+            response.sendRedirect("/login");
         } catch(Exception e){
             System.out.println("exception occured");
         }
