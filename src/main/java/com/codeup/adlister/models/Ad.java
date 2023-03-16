@@ -1,6 +1,11 @@
 package com.codeup.adlister.models;
 
 public class Ad {
+    @Override
+    public String toString() {
+        return id + userId + title + description;
+    }
+
     private long id;
     private long userId;
     private String title;
