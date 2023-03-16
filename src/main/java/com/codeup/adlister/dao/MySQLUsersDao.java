@@ -7,6 +7,7 @@ import java.sql.*;
 
 public class MySQLUsersDao implements Users{
     private Connection connection = null;
+    private final User invalid = new User(0, "", "", "");
 
     public MySQLUsersDao(Config config) {
         try {
@@ -29,7 +30,9 @@ public class MySQLUsersDao implements Users{
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
-            rs.next();
+            if(!rs.next()){
+                return invalid;
+            }
             return extractUsers(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error creating a new ad.", e);
