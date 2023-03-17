@@ -25,7 +25,7 @@ public class CreateAdServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = (User) request.getSession().getAttribute("user");
-        Long userId = user.getId();
+        long userId = user.getId();
         Ad ad = new Ad(
             userId, // for now we'll hardcode the user id
             request.getParameter("title"),
